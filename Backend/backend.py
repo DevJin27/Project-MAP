@@ -27,8 +27,8 @@ async def telemetryEndpoint(websocket: WebSocket):
                     "level": vehicle.battery.level or 0
                 },
                 "location": {
-                    "latitude": vehicle.location.global_frame.lat or 0.0,
-                    "longit": vehicle.location.global_frame.lon or 0.0,
+                    "lat": vehicle.location.global_frame.lat or 0.0,
+                    "lon": vehicle.location.global_frame.lon or 0.0,
                     "alt": vehicle.location.global_frame.alt or 0.0
                 },
                 "relative_altitude": vehicle.location.global_relative_frame.alt or 0.0,
@@ -51,8 +51,8 @@ async def telemetryEndpoint(websocket: WebSocket):
         await websocket.close()
 
 
-@app.onEvent("shutdown")
-def shutdown_event():
+@app.on_event("shutdown")
+def shutdownEvent():
     if vehicle:
         print("Closing drone connection...")
         vehicle.close()
